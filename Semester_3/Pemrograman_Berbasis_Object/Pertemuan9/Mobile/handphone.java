@@ -1,9 +1,11 @@
 package Mobile;
 
 public class handphone extends Mobile {
-    public String layarkecil, camera, speaker;
+    private String camera;
+    private String speaker;
+    private boolean layarkecil;
     
-    public handphone(String layarkecil, String camera, String speaker, int berat) {
+    public handphone(boolean layarkecil, String camera, String speaker, int berat) {
         super(berat);
         this.layarkecil = layarkecil;
         this.camera = camera;
@@ -11,17 +13,10 @@ public class handphone extends Mobile {
     }
 
     @Override
-    public String deteksiPerangkat() {
-        return "Perangkat ini adalah Handphone.";
-    }
-
-    @Override
-    public int isMobile() {
-        if (berat < 4) {
-            System.out.println("Perangkat ini Mobile");
-        } 
-            System.out.println("Perangkat ini bukan Mobile");
-        return berat;
+    public void info() {
+        super.info();
+        System.out.println("Layar Kecil: " + (layarkecil ? "Ya" : "Tidak"));
+        System.out.println("Camera: " + camera);
+        System.out.println("Speaker: " + speaker);
     }
 }
-

@@ -3,20 +3,25 @@ package Mobile;
 public class Mobile {
     public int berat;
 
+    public Mobile() {
+    }
+    
     public Mobile(int berat) {
         this.berat = berat;
     }
 
-    public String deteksiPerangkat() {
-        return "Jenis perangkat tidak diketahui.";
+    // Metode untuk menentukan apakah perangkat ini mobile atau bukan
+    public boolean isMobile() {
+        if (berat < 4) {
+            System.out.println("Perangkat ini Mobile (berat di bawah 4)");
+            return true;
+        } else {
+            System.out.println("Perangkat ini bukan Mobile (berat 4 atau lebih)");
+            return false;
+        }
     }
 
-    public int isMobile() {
-        if (berat < 4) {
-            System.out.println("Perangkat ini Mobile");
-        } else {
-            System.out.println("Perangkat ini bukan Mobile");
-        }
-        return berat;
+    public void info() {
+        System.out.println("Berat : " + berat + " Kg" );
     }
 }

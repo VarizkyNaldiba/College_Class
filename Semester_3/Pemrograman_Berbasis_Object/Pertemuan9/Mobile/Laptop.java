@@ -1,31 +1,29 @@
 package Mobile;
 
 public class Laptop extends Mobile {
-    public int ram, hardisk;
-    public String keyboard, layarlebar, proccessor;
+    public int ram;
+    public int hardisk;
+    public String processor;
+    public boolean keyboard;
+    public boolean layarlebar;
 
-    public Laptop(int berat, int ram, int hardisk, String keyboard, String layarlebar, String proccessor) {
+    public Laptop(int berat, int ram, int hardisk, boolean keyboard, boolean layarlebar, String processor) {
         super(berat);
         this.ram = ram;
         this.hardisk = hardisk;
         this.keyboard = keyboard;
         this.layarlebar = layarlebar;
-        this.proccessor = proccessor;
+        this.processor = processor;
     }
+
 
     @Override
-    public int isMobile() {
-        if (berat < 4) {
-            System.out.println("Perangkat ini Mobile");
-        } else {
-            System.out.println("Perangkat ini bukan Mobile");
-        }
-        return berat;
+    public void info() {
+        super.info();
+        System.out.println("RAM: " + ram + " GB");
+        System.out.println("Hardisk: " + hardisk + " GB");
+        System.out.println("Keyboard: " + (keyboard ? "Ada" : "Tidak Ada"));
+        System.out.println("Layar Lebar: " + (layarlebar ? "Ya" : "Tidak"));
+        System.out.println("Processor: " + processor);
     }
-
-    @Override
-    public String deteksiPerangkat() {
-        return "Perangkat ini adalah Laptop.";
-    }
-
 }

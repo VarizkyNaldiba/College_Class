@@ -4,57 +4,54 @@ import java.util.Scanner;
 
 public class detectMain {
     public static void main(String[] args) {
-        Scanner device = new Scanner(System.in);
-
+        Scanner scanner = new Scanner(System.in);
+        
         System.out.print("Masukkan berat: ");
-        int berat = device.nextInt();
+        int berat = scanner.nextInt();
 
-        Mobile myDevice;
-        if (berat < 4) {
-            System.out.print("Masukkan jenis perangkat (Laptop/Handphone): ");
-            String type = device.next();
+        Mobile mobileDevice = new Mobile();
 
-            if (type.equalsIgnoreCase("Laptop")) {
-                System.out.print("Masukkan RAM: ");
-                int ram = device.nextInt();
-                System.out.print("Masukkan hardisk: ");
-                int hardisk = device.nextInt();
-                System.out.print("Masukkan keyboard: ");
-                String keyboard = device.next();
-                System.out.print("Masukkan layar lebar: ");
-                String layarlebar = device.next();
-                System.out.print("Masukkan proccessor: ");
-                String proccessor = device.next();
+        if (berat < 4) { 
+            System.out.print("Masukkan layar kecil (ya/tidak): ");
+            String layarkecil = scanner.next();
+            System.out.print("Masukkan keyboard (ada/tidak): ");
+            String keyboard = scanner.next();
 
-                myDevice = new Laptop(berat, ram, hardisk, keyboard, layarlebar, proccessor);
+            boolean isHandphone = layarkecil.equalsIgnoreCase("ya") && keyboard.equalsIgnoreCase("tidak");
+            boolean isLaptop = layarkecil.equalsIgnoreCase("tidak") && keyboard.equalsIgnoreCase("ada");
 
-            } else if (type.equalsIgnoreCase("Handphone")) {
-                System.out.print("Masukkan layar kecil: ");
-                String layarkecil = device.next();
+            // Instansiasi objek berdasarkan input pengguna
+            if (isHandphone) {
                 System.out.print("Masukkan camera: ");
-                String camera = device.next();
+                String camera = scanner.next();
                 System.out.print("Masukkan speaker: ");
-                String speaker = device.next();
-                System.out.print("Masukkan merk (Android/iOS): ");
-                String merk = device.next();
-
-                if (merk.equalsIgnoreCase("Android")) {
-                    myDevice = new android(layarkecil, camera, speaker, berat, merk);
-                } else {
-                    myDevice = new ios(layarkecil, camera, speaker, berat);
-                }
-
+                String speaker = scanner.next();
+                mobileDevice = new handphone(layarkecil.equalsIgnoreCase("ya"), camera, speaker, berat);
+            } else if (isLaptop) {
+                System.out.print("Masukkan RAM: ");
+                int ram = scanner.nextInt();
+                System.out.print("Masukkan hardisk: ");
+                int hardisk = scanner.nextInt();
+                System.out.print("Masukkan prosesor: ");
+                String proccessor = scanner.next();
+                mobileDevice = new Laptop(berat, ram, hardisk, true, true, proccessor);
+            } 
+            mobileDevice.isMobile();
+            if (mobileDevice instanceof handphone) {
+                System.out.println("Perangkat ini adalah Handphone.");
+            } else if (mobileDevice instanceof Laptop) {
+                System.out.println("Perangkat ini adalah Laptop.");
             } else {
-                System.out.println("Jenis perangkat tidak dikenal.");
-                myDevice = new Mobile(berat);
-            }
+                System.out.println("Perangkat ini tidak dapat dikenali.");
+            } 
+
+            mobileDevice.info();
+
         } else {
-            System.out.println("Perangkat ini bukan Mobile");
-            myDevice = new Mobile(berat);
+            System.out.println("Perangkat tidak mobile");
         }
 
-        System.out.println(myDevice.deteksiPerangkat());
-        myDevice.isMobile();
-        device.close();
+       
+        scanner.close();
     }
 }
