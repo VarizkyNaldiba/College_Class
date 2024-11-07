@@ -1,3 +1,4 @@
+package P1;
 public class Staff extends Karyawan {
                 private int lembur;
                 private double gajiLembur;
@@ -27,11 +28,13 @@ public class Staff extends Karyawan {
      }
      
      public void lihatInfo() {
-         System.out.println("NIP    :" + this.getNip());
-         System.out.println("Nama   :" + this.getNama());
-         System.out.println("Golongan :" + this.getGolongan());
-         System.out.println("Jml Lembur :" + this.getLembur());
-         System.out.printf("Gaji Lembur :%.of\n" + this.getGajiLembur());
-         System.out.printf("Gaji   :%.of\n" + this.getGaji());
-     }
+        System.out.println("NIP    : " + this.getNip());
+        System.out.println("Nama   : " + this.getNama());
+        System.out.println("Golongan : " + this.getGolongan());
+        System.out.println("Jml Lembur : " + this.getLembur());
+        System.out.printf("Gaji Lembur : %.0f\n", this.getGajiLembur());
+        System.out.printf("Gaji   : %.0f\n", this.getGaji());   
+    }
+    
+
 }

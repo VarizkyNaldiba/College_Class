@@ -1,3 +1,4 @@
+package P1;
 public class Karyawan {
                 private String nama, nip, golongan;
                 private double gaji;

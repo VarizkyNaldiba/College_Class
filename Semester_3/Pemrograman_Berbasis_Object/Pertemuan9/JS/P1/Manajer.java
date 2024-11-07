@@ -1,3 +1,4 @@
+package P1;
 public class Manajer extends Karyawan    {                
     private double tunjangan;
                 private String bagian;
@@ -24,7 +25,6 @@ public class Manajer extends Karyawan    {
     }
 
     public void viewStaff() {
-        int i;
         System.out.println("------------------------------");
         for (int i = 0; i < st.length; i++) {
             st[i].lihatInfo();
