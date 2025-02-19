@@ -44,30 +44,36 @@ Route::get('articles/{id}', function ($articleId) {
 
 // Route group
 
-Route::middleware(['first', 'second'])->group(function () { 
+Route::middleware(['first', 'second'])->group(function () {
     Route::get('/group', function () {
-    // Uses first & second middleware...
+        // Uses first & second middleware...
+    });
+    Route::get('/user/profile', function () {
+        // Uses first & second middleware...
+    });
 });
-// Route::get('/user/profile', function () {
-// // Uses first & second middleware...
+Route::domain('{account}.example.com')->group(function () {
+    Route::get('user/{id}', function ($account, $id) {});
+});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/user', [UserController::class, 'index']);
+//     Route::get('/post', [PostController::class, 'index']);
+//     Route::get('/event', [EventController::class, 'index']);
 // });
-});
-Route::domain('{account}.example.com')->group(function () { 
-    Route::get('user/{id}', function ($account, $id) {
-
-});
-
-});
-Route::middleware('auth')->group(function () {
-Route::get('/user', [UserController::class, 'index']);
-Route::get('/post', [PostController::class, 'index']);
-Route::get('/event', [EventController::class, 'index']);
-});
 
 // // Route Prefixes
 
 // Route::prefix('admin')->group(function () {
-//     route('/user', [UserController::class, 'index']);
-//     route('/post', [PostController::class, 'index']);
-//     route('/event', [EventController::class, 'index']);
+//     Route::get('/user', [UserController::class, 'index']);
+//     Route::get('/post', [PostController::class, 'index']);
+//     Route::get('/event', [EventController::class, 'index']);
 // });
+
+Route::get('/user', function () {
+    return 'Halaman User';
+});
+
+Route::redirect('/here', '/there');
+
+Route::view('/welcome', 'welcome');
+Route::view('/welcome', 'welcome', ['name' => 'Taylor']);
