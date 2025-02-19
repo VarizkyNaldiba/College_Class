@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function user($id, $name)
+    public function show($id, $name)
     {
         return view('user.profile', compact('id', 'name'));
     }
