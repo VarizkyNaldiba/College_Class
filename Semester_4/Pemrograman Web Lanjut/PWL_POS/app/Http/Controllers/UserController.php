@@ -30,9 +30,9 @@ class UserController extends Controller
         // // dd($user);
         // return view('user', ['data' => $user]);
 
-    //     $user = UserModel::firstOrCreate([
-    //         'username' => 'manager33',
-    //         'nama' => 'Manager tiga tiga',
+    //     $user = UserModel::firstOrNew([
+    //         'username' => 'manager 33',
+    //         'nama' => 'Manager Tiga Tiga',
     //         'password' => Hash::make('12345'),
     //         'level_id' => 2
     //     ],
@@ -40,7 +40,7 @@ class UserController extends Controller
     // $user->save();
 
     //     return view('user', ['data' => $user]);
-
+// 
 
     $user = UserModel::create([
         'username' => 'manager11',
@@ -65,6 +65,9 @@ class UserController extends Controller
     // $user->isClean('nama', 'username');
 
     dd($user->wasChanged(['nama', 'username']));
+
+    // $user = UserModel::all();
+    // return view('user', ['data' => $user]);
 
     }
 }

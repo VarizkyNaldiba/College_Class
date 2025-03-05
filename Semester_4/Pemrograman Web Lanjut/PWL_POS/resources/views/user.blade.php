@@ -11,6 +11,7 @@
             <th>Username</th>
             <th>Nama</th>
             <th>ID Level Pengguna</th>
+            {{-- <th>Aksi</th> --}}
         </tr>
         {{-- @foreach ($data as $d) --}}
             <tr>
@@ -18,6 +19,10 @@
                 <td>{{$data->username}}</td>
                 <td>{{$data->nama}}</td>
                 <td>{{$data->level_id}}</td>
+                {{-- <td>
+                    <a href="/user/{{$d->user_id}}/edit">Edit</a>
+                    <a href="/user/{{$d->user_id}}/delete">Delete</a>
+                </td> --}}
             </tr>
         {{-- @endforeach --}}
     </table>
