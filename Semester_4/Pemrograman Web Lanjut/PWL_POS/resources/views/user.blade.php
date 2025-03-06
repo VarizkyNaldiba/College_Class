@@ -11,20 +11,22 @@
             <th>Username</th>
             <th>Nama</th>
             <th>ID Level Pengguna</th>
-            {{-- <th>Aksi</th> --}}
+            <th>Aksi</th>
         </tr>
-        {{-- @foreach ($data as $d) --}}
+        @foreach ($data as $d)
             <tr>
-                <td>{{$data->user_id}}</td>
-                <td>{{$data->username}}</td>
-                <td>{{$data->nama}}</td>
-                <td>{{$data->level_id}}</td>
-                {{-- <td>
-                    <a href="/user/{{$d->user_id}}/edit">Edit</a>
-                    <a href="/user/{{$d->user_id}}/delete">Delete</a>
-                </td> --}}
+                <td>{{$d->user_id}}</td>
+                <td>{{$d->username}}</td>
+                <td>{{$d->nama}}</td>
+                <td>{{$d->level_id}}</td>
+                <td>
+                    <a href="/user/ubah{{$d->user_id}}/edit">Edit</a> |
+                    <a href="/user/hapus{{$d->user_id}}/delete">Delete</a> | 
+                    <a href="/user/tambah" class="btn btn-primary">Tambah User</a>
+
+                </td>
             </tr>
-        {{-- @endforeach --}}
+        @endforeach
     </table>
 </body>
 </html>

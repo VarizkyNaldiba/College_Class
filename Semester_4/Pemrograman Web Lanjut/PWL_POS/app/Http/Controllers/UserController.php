@@ -42,32 +42,47 @@ class UserController extends Controller
     //     return view('user', ['data' => $user]);
 // 
 
-    $user = UserModel::create([
-        'username' => 'manager11',
-        'nama' => 'Manager11',
-        'password' => Hash::make('12345'),
-        'level_id' => 2
-    ]);
+    // $user = UserModel::create([
+    //     'username' => 'manager11',
+    //     'nama' => 'Manager11',
+    //     'password' => Hash::make('12345'),
+    //     'level_id' => 2,
+    // ]);
 
-    $user->username = 'manager12';
+    // $user->username = 'manager11';
 
-    $user->save();
-
-    $user->wasChanged();
-    $user->wasChanged('username');
-    $user->wasChanged('username','level_id');
-    $user->wasChanged('nama');
-
-
+    // $user->save();
+    
+    // $user->wasChanged();
+    // $user->wasChanged('username');
+    // $user->wasChanged('username', 'level_id');
+    // $user->wasChanged('nama');
+    // $user->wasChanged('nama', 'username'); 
+    
+    
     // $user->isClean();
     // $user->isClean('username');
     // $user->isClean('nama');
     // $user->isClean('nama', 'username');
+    
 
-    dd($user->wasChanged(['nama', 'username']));
+    // $user->isDirty();
+    // $user->isClean();
+    // dd($user->isDirty());
+    // dd($user->wasChanged(['nama', 'username']));
 
     // $user = UserModel::all();
     // return view('user', ['data' => $user]);
+    }
 
+    function tambah_simpan(Request $request){ // Menambahkan parameter $request
+        UserModel::create([
+            'username' => $request->username,
+            'nama' => $request->nama,
+            'password' => Hash::make($request->password), // Perbaikan penulisan
+            'level_id' => $request->level_id
+        ]);
+
+        return redirect('/user');
     }
 }
