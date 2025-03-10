@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index(){
-        $users = UserModel::all(); // Ambil semua data user
-        return view('user', ['data' => $users]);
-    }
+    // public function index(){
+    //     $users = UserModel::all(); // Ambil semua data user
+    //     return view('user', ['data' => $users]);
+    // }
 
     public function tambah() {
         return view('user_tambah'); // Pastikan file `user_tambah.blade.php` ada di folder `views`
@@ -60,5 +60,10 @@ class UserController extends Controller
         
         $user->delete();
         return redirect('/user');
+    }
+
+    public function index(){
+        $user = UserModel::with('level')->get();
+        dd($user);
     }
 }
