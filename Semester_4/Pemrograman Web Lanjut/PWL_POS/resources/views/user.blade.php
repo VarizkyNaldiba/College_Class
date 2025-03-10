@@ -20,9 +20,12 @@
                 <td>{{$d->nama}}</td>
                 <td>{{$d->level_id}}</td>
                 <td>
-                    <a href="/user/ubah{{$d->user_id}}/edit">Edit</a> |
-                    <a href="/user/hapus{{$d->user_id}}/delete">Delete</a> | 
-                    <a href="/user/tambah" class="btn btn-primary">Tambah User</a>
+                    <td>
+                        <a href="/user/ubah/{{$d->user_id}}">Edit</a> |
+                        <a href="/user/hapus/{{$d->user_id}}">Delete</a> | 
+                        <a href="/user/tambah" class="btn btn-primary">Tambah User</a>
+                    </td>
+                    
 
                 </td>
             </tr>
