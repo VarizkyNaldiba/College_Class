@@ -43,7 +43,7 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
-  @include('layouts.footer')
+  {{-- @include('layouts.footer') --}}
 </div>
 <!-- ./wrapper -->
 
