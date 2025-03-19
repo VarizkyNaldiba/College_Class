@@ -10,9 +10,9 @@ class WelcomeController extends Controller
             'title' => 'Selamat Datang',
             'list' => ['Home', 'Welcome']
         ];
+
         $activeMenu = 'dashboard';
 
-        return view('welcome',['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('welcome', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
 }
-?>

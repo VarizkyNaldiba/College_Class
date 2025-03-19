@@ -5,7 +5,7 @@
     <div class="card-header">
       <h3 class="card-title">{{ $page->title }}</h3>
       <div class="card-tools">
-        <a class="btn btn-sm btn-primary mt-1" href="{{ url('kategori/create') }}">Tambah</a>
+        <a class="btn btn-sm btn-primary mt-1" href="{{ url('level/create') }}">Tambah</a>
       </div>
     </div>
     <div class="card-body">
@@ -20,24 +20,24 @@
           <div class="form-group row">
             <label class="form-control">Filter:</label>
             <div class="col-3">
-              <select class="form-control" name="kategori_kode" id="kategori_kode" required>
+              <select class="form-control" name="level_kode" id="level_kode" required>
                 <option value="">- semua -</option>
-                @foreach($kategori as $item)
-                  <option value="{{$item->kategori_kode}}">{{$item->kategori_nama}}</option>
+                @foreach($level as $item)
+                  <option value="{{$item->level_kode}}">{{$item->level_nama}}</option>
                 @endforeach
               </select>
-              <small class="form-text text-muted">Kategori Kode</small>
+              <small class="form-text text-muted">Level Kode</small>
             </div>
           </div>
         </div>
       </div>
 
-      <table class="table table-bordered table-striped table-hover table-sm" id="table_kategori">
+      <table class="table table-bordered table-striped table-hover table-sm" id="table_level">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Kategori Kode</th>
-                <th>Kategori Nama</th>
+                <th>Level Kode</th>
+                <th>Level Nama</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -52,33 +52,32 @@
 @push('js')
   <script>
     $(document).ready(function() {
-      var dataKategori = $('#table_kategori').DataTable({
+      var dataLevel = $('#table_level').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-          url: "{{ url('kategori/list') }}",
-          dataType: "json",
+          url: "{{ url('level/list') }}",
           type: "POST",
           "data": function (d){
-            d.kategori_id = $('#kategori_kode').val();
+            d.level_kode = $('#level_kode').val();
           }
           
         },
         columns: [
           {
-            data: "kategori_id",
+            data: "level_id",
             className: "",
             orderable: true, // Kolom ini bisa diurutkan
             searchable: true // Kolom ini bisa dicari
           },
           {
-            data: "kategori_kode",
+            data: "level_kode",
             className: "",
             orderable: true,
             searchable: true
           },
           {
-            data: "kategori_nama", // Mengambil data level hasil dari ORM berelasi
+            data: "level_nama",
             className: "",
             orderable: false,
             searchable: false
@@ -92,8 +91,8 @@
         ]
       });
 
-      $('#kategori_id').on('change', function(){
-        dataUser.ajax.reload();
+      $('#level_kode').on('change', function(){
+        dataLevel.ajax.reload();
       });
     });
   </script>

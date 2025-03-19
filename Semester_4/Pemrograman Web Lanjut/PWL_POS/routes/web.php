@@ -57,13 +57,13 @@ Route::group(['prefix' => 'kategori'], function () {
     Route::delete('/{id}', [KategoriController::class, 'destroy']); // Menghapus kategori
 });
 
-// Route::group(['prefix' => 'barang'], function () {
-//     Route::get('/', [BarangController::class, 'index']);        // Menampilkan daftar Barang
-//     Route::post('/list', [BarangController::class, 'list']);    // Menampilkan data Barang dalam JSON untuk datatables
-//     Route::get('/create', [BarangController::class, 'create']); // Menampilkan form tambah Barang
-//     Route::post('/', [BarangController::class, 'store']);       // Menyimpan Barang baru
-//     Route::get('/{id}', [BarangController::class, 'show']);     // Menampilkan detail Barang
-//     Route::get('/{id}/edit', [BarangController::class, 'edit']); // Menampilkan form edit Barang
-//     Route::put('/{id}', [BarangController::class, 'update']);   // Menyimpan perubahan data Barang
-//     Route::delete('/{id}', [BarangController::class, 'destroy']); // Menghapus Barang
-// });
+Route::group(['prefix' => 'barang'], function () {
+    Route::get('/', [BarangController::class, 'index']);        // Menampilkan daftar Barang
+    Route::post('/list', [BarangController::class, 'list']);    // Menampilkan data Barang dalam JSON untuk datatables
+    Route::get('/create', [BarangController::class, 'create']); // Menampilkan form tambah Barang
+    Route::post('/', [BarangController::class, 'store']);       // Menyimpan Barang baru
+    Route::get('/{id}', [BarangController::class, 'show']);     // Menampilkan detail Barang
+    Route::get('/{id}/edit', [BarangController::class, 'edit']); // Menampilkan form edit Barang
+    Route::put('/{id}', [BarangController::class, 'update']);   // Menyimpan perubahan data Barang
+    Route::delete('/{id}', [BarangController::class, 'destroy']); // Menghapus Barang
+});

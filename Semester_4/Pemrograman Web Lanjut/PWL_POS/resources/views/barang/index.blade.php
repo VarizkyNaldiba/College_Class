@@ -5,7 +5,7 @@
     <div class="card-header">
       <h3 class="card-title">{{ $page->title }}</h3>
       <div class="card-tools">
-        <a class="btn btn-sm btn-primary mt-1" href="{{ url('user/create') }}">Tambah</a>
+        <a class="btn btn-sm btn-primary mt-1" href="{{ url('barang/create') }}">Tambah</a>
       </div>
     </div>
     <div class="card-body">
@@ -20,25 +20,24 @@
           <div class="form-group row">
             <label class="form-control">Filter:</label>
             <div class="col-3">
-              <select class="form-control" name="level_id" id="level_id" required>
+              <select class="form-control" name="barang_kode" id="barang_kode" required>
                 <option value="">- semua -</option>
-                @foreach($level as $item)
-                  <option value="{{$item->level_id}}">{{$item->level_nama}}</option>
+                @foreach($barang as $item)
+                  <option value="{{$item->barang_kode}}">{{$item->barang_nama}}</option>
                 @endforeach
               </select>
-              <small class="form-text text-muted">Level Pengguna</small>
+              <small class="form-text text-muted">barang Kode</small>
             </div>
           </div>
         </div>
       </div>
 
-      <table class="table table-bordered table-striped table-hover table-sm" id="table_user">
+      <table class="table table-bordered table-striped table-hover table-sm" id="table_barang">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Username</th>
-                <th>Nama</th>
-                <th>Level Pengguna</th>
+                <th>barang Kode</th>
+                <th>barang Nama</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -53,38 +52,33 @@
 @push('js')
   <script>
     $(document).ready(function() {
-      var dataUser = $('#table_user').DataTable({
-        serverSide: true, // Aktifkan server-side processing
+      var databarang = $('#table_barang').DataTable({
+        processing: true,
+        serverSide: true,
         ajax: {
-          url: "{{ url('user/list') }}",
+          url: "{{ url('barang/list') }}",
           dataType: "json",
           type: "POST",
           "data": function (d){
-            d.level_id = $('#level_id').val();
+            d.barang_id = $('#barang_kode').val();
           }
           
         },
         columns: [
           {
-            data: "DT_RowIndex", // Nomor urut dari Laravel DataTables (addIndexColumn)
-            className: "text-center",
-            orderable: false,
-            searchable: false
-          },
-          {
-            data: "username",
+            data: "barang_id",
             className: "",
             orderable: true, // Kolom ini bisa diurutkan
             searchable: true // Kolom ini bisa dicari
           },
           {
-            data: "nama",
+            data: "barang_kode",
             className: "",
             orderable: true,
             searchable: true
           },
           {
-            data: "level.level_nama", // Mengambil data level hasil dari ORM berelasi
+            data: "barang_nama", // Mengambil data level hasil dari ORM berelasi
             className: "",
             orderable: false,
             searchable: false
@@ -98,7 +92,7 @@
         ]
       });
 
-      $('#level_id').on('change', function(){
+      $('#barang_id').on('change', function(){
         dataUser.ajax.reload();
       });
     });
