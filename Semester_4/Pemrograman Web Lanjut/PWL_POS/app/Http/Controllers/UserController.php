@@ -253,7 +253,7 @@ class UserController extends Controller
     }
 
     public function store_ajax(Request $request) {
-        // cek apakah request berupa ajax
+        // Pastikan request berasal dari AJAX
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
                 'level_id'  => 'required|integer',
@@ -262,26 +262,34 @@ class UserController extends Controller
                 'password'  => 'required|min:6'
             ];
     
-            // use Illuminate\Support\Facades\Validator;
+            // Validasi input
             $validator = Validator::make($request->all(), $rules);
     
             if ($validator->fails()) {
                 return response()->json([
-                    'status'   => false, // response status, false: error/gagal, true: berhasil
+                    'status'   => false,
                     'message'  => 'Validasi Gagal',
-                    'msgField' => $validator->errors() // pesan error validasi
-                ]);
+                    'errors'   => $validator->errors() // pesan error validasi
+                ], 422); // Status 422: Unprocessable Entity
             }
     
-            UserModel::create($request->all());
+            // Simpan data ke database dengan hashing password
+            UserModel::create([
+                'level_id'  => $request->level_id,
+                'username'  => $request->username,
+                'nama'      => $request->nama,
+                'password'  => bcrypt($request->password) // Hash password
+            ]);
+    
             return response()->json([
                 'status'  => true,
                 'message' => 'Data user berhasil disimpan'
             ]);
         }
-       redirect('/');
-    }
     
+        // Jika request bukan AJAX, redirect ke halaman user
+        return redirect('/user')->with('error', 'Request tidak valid');
+    }
 
 
 }
