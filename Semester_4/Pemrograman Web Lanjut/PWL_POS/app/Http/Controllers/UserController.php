@@ -96,15 +96,15 @@ class UserController extends Controller
     // Ambil data user dalam bentuk JSON untuk DataTables
     public function list(Request $request)
 {
-    $users = UserModel::select('user_id', 'username', 'nama', 'level_id')
+    $user = UserModel::select('user_id', 'username', 'nama', 'level_id')
         ->with('level');
 
     // Pastikan level_id hanya digunakan jika tidak kosong
     if ($request->has('level_id') && !empty($request->level_id)) {
-        $users->where('level_id', $request->level_id);
+        $user->where('level_id', $request->level_id);
     }
 
-    return DataTables::of($users)
+    return DataTables::of($user)
         ->addIndexColumn() // Menambahkan kolom index / no urut (DT_RowIndex)
         ->addColumn('aksi', function ($user) {
             $btn  = '<button onclick="modalAction(\''.url('/user/' . $user->user_id . '/show_ajax').'\')" class="btn btn-info btn-sm">Detail</button> ';
