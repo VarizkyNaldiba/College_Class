@@ -10,17 +10,7 @@
         <form method="POST" action="{{ url('level') }}" class="form-horizontal">
             @csrf
             <div class="form-group row">
-                <label class="col-1 control-label col-form-label">ID Level</label>
-                <div class="col-11">
-                    <input type="text" class="form-control" id="level_id" name="level_id" value="{{ old('level_id') }}" required>
-                    @error('level_id')
-                        <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
-            </div>
-        
-            <div class="form-group row">
-                <label class="col-1 control-label col-form-label">Kode Level</label>
+                <label class="col-1 control-label col-form-label">Level Kode</label>
                 <div class="col-11">
                     <input type="text" class="form-control" id="level_kode" name="level_kode" value="{{ old('level_kode') }}" required>
                     @error('level_kode')
@@ -28,9 +18,9 @@
                     @enderror
                 </div>
             </div>
-        
+
             <div class="form-group row">
-                <label class="col-1 control-label col-form-label">Nama Level</label>
+                <label class="col-1 control-label col-form-label">Nama level</label>
                 <div class="col-11">
                     <input type="text" class="form-control" id="level_nama" name="level_nama" value="{{ old('level_nama') }}" required>
                     @error('level_nama')
@@ -38,7 +28,7 @@
                     @enderror
                 </div>
             </div>
-        
+            
             <div class="form-group row">
                 <label class="col-1 control-label col-form-label"></label>
                 <div class="col-11">
@@ -46,7 +36,7 @@
                     <a class="btn btn-sm btn-default ml-1" href="{{ url('level') }}">Kembali</a>
                 </div>
             </div>
-        </form>        
+        </form>
     </div>
 </div>
 @endsection

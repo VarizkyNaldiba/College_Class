@@ -1,4 +1,4 @@
-@empty($level)
+@empty($kategori)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,37 +11,37 @@
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                     Data yang anda cari tidak ditemukan
                 </div>
-                <a href="{{ url('/level') }}" class="btn btn-warning">Kembali</a>
+                <a href="{{ url('/kategori') }}" class="btn btn-warning">Kembali</a>
             </div>
         </div>
     </div>
 @else
-    <form action="{{ url('/level/' . $level->level_id . '/update_ajax') }}" method="POST" id="form-edit"> @csrf
+    <form action="{{ url('/kategori/' . $kategori->kategori_id . '/update_ajax') }}" method="POST" id="form-edit"> @csrf
         @method('PUT')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Data Level</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Data Kategori</h5>
                     <button type="button" class="close" data-dismiss="modal" arialabel="Close">
                         <span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Level Kode</label>
+                        <label>Kategori Kode</label>
                         <div class="col-11">
-                            <input type="text" class="form-control" id="level_kode" name="level_kode"
-                                   value="{{ old('level_kode', $level->level_kode) }}" required>
-                            @error('level_kode')
+                            <input type="text" class="form-control" id="kategori_kode" name="kategori_kode"
+                                   value="{{ old('kategori_kode', $kategori->kategori_kode) }}" required>
+                            @error('kategori_kode')
                                 <small class="form-text text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Nama Level</label>
+                        <label>Nama Kategori</label>
                         <div class="col-11">
-                            <input type="text" class="form-control" id="level_nama" name="level_nama"
-                                   value="{{ old('level_nama', $level->level_nama) }}" required>
-                            @error('level_nama')
+                            <input type="text" class="form-control" id="kategori_nama" name="kategori_nama"
+                                   value="{{ old('kategori_nama', $kategori->kategori_nama) }}" required>
+                            @error('kategori_nama')
                                 <small class="form-text text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -58,10 +58,10 @@
         $(document).ready(function () {
             $("#form-edit").validate({
                 rules: {
-                    level_kode: { 
+                    kategori_kode: { 
                     required: true, 
                     minlength: 3,
-                }, level_nama: { 
+                }, kategori_nama: { 
                     required: true, 
                     minlength: 3, 
                     maxlength: 100 
@@ -77,7 +77,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                $('#table_level').DataTable().ajax.reload(null, false);
+                                $('#table_kategori').DataTable().ajax.reload(null, false);
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function (prefix, val) {
