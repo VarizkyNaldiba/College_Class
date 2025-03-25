@@ -42,20 +42,21 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::group(['prefix' => 'level'], function () {
-    Route::get('/', [LevelController::class, 'index']);        // Menampilkan daftar level
-    Route::post('/list', [LevelController::class, 'list']);    // Menampilkan data level dalam JSON untuk datatables
-    Route::get('/create', [LevelController::class, 'create']); // Menampilkan form tambah level
-    Route::post('/', [LevelController::class, 'store']);       // Menyimpan level baru
-    Route::get('/{id}', [LevelController::class, 'show']);     // Menampilkan detail level
-    Route::get('/{id}/edit', [LevelController::class, 'edit']); // Menampilkan form edit level
-    Route::put('/{id}', [LevelController::class, 'update']);   // Menyimpan perubahan data level
-    Route::delete('/{id}', [LevelController::class, 'destroy']); // Menghapus level
-    route::get('/create_ajax', [LevelController::class, 'create_ajax']);
-    route::post('/ajax',[LevelController::class,'store_ajax']);
-    route::get('/{id}/edit_ajax', [LevelController::class, 'edit_ajax']);
-    route::put('/{id}/update_ajax', [LevelController::class, 'update_ajax']);
-    route::get('/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']);
-    route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']);
+    Route::get('/', [LevelController::class, 'index']);
+    Route::post('/list', [LevelController::class, 'list']);
+    Route::get('/create', [LevelController::class, 'create']);
+    Route::post('/', [LevelController::class, 'store']);
+    Route::get('/{id}', [LevelController::class, 'show']);
+    Route::get('/{id}/edit', [LevelController::class, 'edit']);
+    Route::put('/{id}', [LevelController::class, 'update']);
+    Route::delete('/{id}', [LevelController::class, 'destroy']);
+
+    // AJAX Routes
+    Route::get('/create_ajax', [LevelController::class, 'create_ajax']);
+    Route::post('/store_ajax', [LevelController::class, 'store_ajax']);
+    Route::get('/{id}/edit_ajax', [LevelController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [LevelController::class, 'update_ajax']);
+    Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']);
 });
 
 Route::group(['prefix' => 'kategori'], function () {

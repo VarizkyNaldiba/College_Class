@@ -175,32 +175,28 @@ class LevelController extends Controller
     public function store_ajax(Request $request) {
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'level_kode'  => 'required|string|min:3|unique:m_level,level_kode',
-                'level_nama'  => 'required|string|min:3|unique:m_level,level_nama',                                                                                                                              
+                'level_kode' => 'required|string|min:3|unique:m_level,level_kode',
+                'level_nama' => 'required|string|max:100',
             ];
-    
+
             $validator = Validator::make($request->all(), $rules);
-    
+
             if ($validator->fails()) {
                 return response()->json([
-                    'status'   => false,
-                    'message'  => 'Validasi Gagal',
-                    'errors'   => $validator->errors()
-                ], 422);
+                    'status' => false,
+                    'message' => 'Validasi gagal',
+                    'msgfield' => $validator->errors()
+                ]);
             }
     
-            LevelModel::create([
-                'level_kode' => $request->level_kode,
-                'level_nama' => $request->level_nama,
-            ]);
-    
+            LevelModel::create($request->all());
             return response()->json([
-                'status'  => true,
-                'message' => 'Data level berhasil disimpan'
+                'status' => true,
+                'success' => 'Data level Berhasil disimpan'
             ]);
-        }
     
-        return redirect('/level')->with('error', 'Request tidak valid');
+        }
+        redirect('/');
     }
     
 
