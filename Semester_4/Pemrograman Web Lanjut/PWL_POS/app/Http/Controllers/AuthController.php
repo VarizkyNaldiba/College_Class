@@ -16,12 +16,12 @@ class AuthController extends Controller
     
     public function postlogin(Request $request) {
         if($request->ajax() || $request->wantsJson()) {
-            $credentials = $request->only('email', 'password');
+            $credentials = $request->only('username', 'password');
             if (auth::attempt($credentials)) {
                 return response()->json ([
                     'status' => true,
                     'message' => 'Login Berhasil',
-                    'redirect' => url('/')
+                    'redirect' => url('/')                                                                                                          
                 ]);
     }
     
