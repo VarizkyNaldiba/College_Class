@@ -73,12 +73,11 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ url('/logout') }}" class="nav-link {{ ($activeMenu == 'login') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-cash-register"></i>
-            <p>Logout</p>
+          <a href="{{ url('/logout') }}" class="nav-link" id="logout-btn">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>Logout</p>
           </a>
-        </li>
-        
+      </li>
       </ul>
     </nav>
   </div>

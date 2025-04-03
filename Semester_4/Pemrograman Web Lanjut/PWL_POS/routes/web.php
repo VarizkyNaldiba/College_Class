@@ -15,7 +15,7 @@ route::post('postlogin', [AuthController::class, 'postlogin']);
 route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 
 route::middleware('auth')->group(function () {
-    
+                                                                                                    
     Route::get('/', function () {
         return view('welcome');
     });
