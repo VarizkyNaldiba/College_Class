@@ -12,7 +12,7 @@ Route::pattern('id','[0-9]+');
 
 route::get('login', [AuthController::class, 'login'])->name('login');
 route::post('postlogin', [AuthController::class, 'postlogin']);
-route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 route::middleware('auth')->group(function () {
                                                                                                     

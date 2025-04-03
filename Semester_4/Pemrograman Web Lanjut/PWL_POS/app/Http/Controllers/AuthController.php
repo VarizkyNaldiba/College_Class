@@ -33,13 +33,22 @@ class AuthController extends Controller
 return redirect('login');
 }
 
-public function logout(Request $request) 
+public function logout(Request $request)
 {
     Auth::logout();
-    
     $request->session()->invalidate();
     $request->session()->regenerateToken();
+
+    if ($request->ajax() || $request->wantsJson()) {
+        return response()->json([
+            'status' => true,
+            'message' => 'Logout berhasil!',
+            'redirect' => url('/login')
+        ]);
+    }
+
     return redirect('/login');
 }
+
 }
 
