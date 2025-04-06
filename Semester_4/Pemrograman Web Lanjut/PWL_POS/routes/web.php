@@ -112,7 +112,15 @@ route::middleware('auth')->group(function () {
         Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']); // menyimpan perubahan data Barang Ajax
         Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']); // untuk tampilkan form confirm delete Barang Ajax
         Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']); // untuk menghapus data Barang Ajax
-    });
+
+        route::get('/import',[BarangController::class,'import']);    
+        route::post('/barang/import_ajax',[BarangController::class,'import_ajax']);
+
+        route::get('/barang/export',[BarangController::class,'export']);
+        route::get('/barang/export_template',[BarangController::class,'export_template']);
+    
+    
+});
 });
 });
 
