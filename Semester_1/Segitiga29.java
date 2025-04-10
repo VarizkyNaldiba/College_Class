@@ -14,3 +14,4 @@ public class Segitiga29 {
         System.out.println("Luas segitiga: " + luas);
     }
  }
+ 

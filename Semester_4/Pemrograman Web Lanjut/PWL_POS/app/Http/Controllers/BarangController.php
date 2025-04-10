@@ -186,6 +186,63 @@ class BarangController extends Controller
             return response()->json(['status' => false, 'message' => 'Tidak ada data yang diimport']);
         }
 
-        return redirect('/');
+            return response()->json([
+            'status' => false,
+            'message' => 'Bukan request AJAX',
+            'requested_with' => $request->header('X-Requested-With'),
+        ]);
+    }
+
+
+    public function export()
+    {
+        $barang = BarangModel::select('kategori_id','barang_kode', 'barang_nama','harga_beli','harga_jual')
+            ->orderBy('kategori_id')
+            ->with('kategori')
+            ->get();
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Kode Barang');
+        $sheet->setCellValue('C1', 'Nama Barang');
+        $sheet->setCellValue('D1', 'Harga Beli');
+        $sheet->setCellValue('E1', 'Harga Jual');
+        $sheet->setCellValue('F1', 'Kategori');
+
+        $sheet->getStyle('A1:F1')->getFont()->setBold(true);
+
+        $no = 1;
+        $baris = 2; 
+        foreach ($barang as $item) {
+            $sheet->setCellValue('A' . $baris, $no);
+            $sheet->setCellValue('B' . $baris, $item->barang_kode);
+            $sheet->setCellValue('C' . $baris, $item->barang_nama);
+            $sheet->setCellValue('D' . $baris, $item->harga_beli);
+            $sheet->setCellValue('E' . $baris, $item->harga_jual);
+            $sheet->setCellValue('F' . $baris, optional($item->kategori)->kategori_nama);
+
+            $no++;
+            $baris++;
+        }
+        foreach (range('A', 'F') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true);
+        }
+
+        $sheet->setTitle('Data Barang');
+
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $filename = 'Data_Barang '.date('Y-m-d H:i:s').'.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+        header('Cache-Control: max-age=1');
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+
+        $writer->save('php://output');
+        exit;
     }
 }
