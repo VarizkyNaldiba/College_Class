@@ -1,4 +1,3 @@
-
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
   <!-- Left navbar links -->
   <ul class="navbar-nav">
@@ -45,56 +44,48 @@
       </a>
       <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <a href="#" class="dropdown-item">
-          <!-- Message Start -->
           <div class="media">
             <img src="../../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
             <div class="media-body">
-              <h3 class="dropdown-item-title">
-                Brad Diesel
+              <h3 class="dropdown-item-title">Brad Diesel
                 <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
               </h3>
               <p class="text-sm">Call me whenever you can...</p>
               <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
             </div>
           </div>
-          <!-- Message End -->
         </a>
         <div class="dropdown-divider"></div>
         <a href="#" class="dropdown-item">
-          <!-- Message Start -->
           <div class="media">
             <img src="../../dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
             <div class="media-body">
-              <h3 class="dropdown-item-title">
-                John Pierce
+              <h3 class="dropdown-item-title">John Pierce
                 <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
               </h3>
               <p class="text-sm">I got your message bro</p>
               <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
             </div>
           </div>
-          <!-- Message End -->
         </a>
         <div class="dropdown-divider"></div>
         <a href="#" class="dropdown-item">
-          <!-- Message Start -->
           <div class="media">
             <img src="../../dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
             <div class="media-body">
-              <h3 class="dropdown-item-title">
-                Nora Silvester
+              <h3 class="dropdown-item-title">Nora Silvester
                 <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
               </h3>
               <p class="text-sm">The subject goes here</p>
               <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
             </div>
           </div>
-          <!-- Message End -->
         </a>
         <div class="dropdown-divider"></div>
         <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
       </div>
     </li>
+
     <!-- Notifications Dropdown Menu -->
     <li class="nav-item dropdown">
       <a class="nav-link" data-toggle="dropdown" href="#">
@@ -122,6 +113,8 @@
         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
       </div>
     </li>
+
+    <!-- Fullscreen and Control Sidebar -->
     <li class="nav-item">
       <a class="nav-link" data-widget="fullscreen" href="#" role="button">
         <i class="fas fa-expand-arrows-alt"></i>
@@ -132,6 +125,49 @@
         <i class="fas fa-th-large"></i>
       </a>
     </li>
-  </ul>
+
+
+<!-- Avatar Dropdown Menu -->
+<li class="nav-item dropdown me-3">
+  <a class="nav-link p-0 d-flex align-items-center" data-toggle="dropdown" href="#" id="avatarDropdown">
+    {{-- Trigger dropdown --}}
+    <img 
+      src="{{ auth()->user()->photo ? asset('storage/profile/' . auth()->user()->photo) : asset('storage/profile/image.png') }}"
+      class="rounded-circle shadow-sm border border-light" 
+      alt="User Image" 
+      width="34" 
+      height="34"
+      style="object-fit: cover; transition: transform 0.3s ease;"
+      onmouseover="this.style.transform='scale(1.1)'" 
+      onmouseout="this.style.transform='scale(1)'"
+    >
+  </a>
+
+  <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg shadow p-3 rounded" aria-labelledby="avatarDropdown" style="min-width: 250px;">
+    <div class="text-center mb-2">
+      <div class="mb-2">
+        <img 
+          src="{{ auth()->user()->photo ? asset('storage/profile/' . auth()->user()->photo) : asset('adminlte/dist/img/avatar.png') }}" 
+          class="rounded-circle shadow-sm border" 
+          alt="User Image" 
+          width="90" 
+          height="90" 
+          style="object-fit: cover;"
+        >
+      </div>
+      <p class="fw-semibold mb-0">{{ auth()->user()->nama }}</p>
+      <small class="text-muted">{{ auth()->user()->email ?? '' }}</small>
+    </div>
+
+    <div class="dropdown-divider"></div>
+
+    <a href="#" class="dropdown-item text-center text-primary" data-toggle="modal" data-target="#changeAvatarModal">
+      <i class="fas fa-camera me-2"></i> Ganti Foto Profil
+    </a>
+  </div>
+</li>
+
+</ul>
+
 </nav>
 <!-- /.navbar -->

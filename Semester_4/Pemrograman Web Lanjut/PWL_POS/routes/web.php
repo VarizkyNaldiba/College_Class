@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
 
 // Route::get('/level',[LevelController::class,'index']);
@@ -32,6 +33,8 @@ route::middleware('auth')->group(function () {
     
     Route::get('/', [WelcomeController::class, 'index']);
 
+    
+    
     route::middleware(['authorize:Adm'])->group(function() {
         Route::group(['prefix' => 'user'], function () {
             Route::get('/', [UserController::class, 'index']);        // menampilkan halaman awal user
@@ -115,9 +118,9 @@ route::middleware('auth')->group(function () {
 
         Route::get('/import',[BarangController::class,'import']);    
         Route::post('/import_ajax',[BarangController::class,'import_ajax']);
+        Route::get('/export_excel',[BarangController::class,'export_excel']);
+        Route::get('/export_pdf',[BarangController::class,'export_pdf']);
 
-        Route::get('/barang/export',[BarangController::class,'export']);
-        Route::get('/barang/export_excel',[BarangController::class,'export_excel']);
     
     
 });
@@ -127,6 +130,11 @@ route::middleware('auth')->group(function () {
     // Form Registrasi
     Route::get('register', [AuthController::class, 'register'])->name('register');
     Route::post('register/save', [AuthController::class, 'register_save'])->name('register.save');
+
+    // Profilw
+        Route::post('/profile/update-avatar', [App\Http\Controllers\ProfileController::class, 'updateAvatar']);
+ 
+
     
 
 
