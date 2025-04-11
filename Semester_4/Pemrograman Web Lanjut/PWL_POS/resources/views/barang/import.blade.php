@@ -1,8 +1,7 @@
 <form action="{{ url('/barang/import_ajax') }}" method="POST" id="form-import" enctype="multipart/form-data">
-    @csrf 
+    @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <!-- Header -->
             <div class="modal-header">
                 <h5 class="modal-title">Import Data Barang</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -10,11 +9,8 @@
                 </button>
             </div>
 
-            <!-- Body -->
-
-    
             <div class="modal-body">
-                <!-- Template Download -->
+                <!-- Download Template -->
                 <div class="form-group">
                     <label>Download Template</label><br>
                     <a href="{{ asset('template_barang.xlsx') }}" class="btn btn-info btn-sm" download>
@@ -23,7 +19,7 @@
                     <small id="error-kategori_id" class="error-text form-text text-danger"></small>
                 </div>
 
-                <!-- File Input -->
+                <!-- Upload File -->
                 <div class="form-group">
                     <label>Pilih File</label>
                     <input type="file" name="file_barang" id="file_barang" class="form-control" required>
@@ -31,16 +27,14 @@
                 </div>
             </div>
 
-            <!-- Footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
+                <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
                 <button type="submit" class="btn btn-primary">Upload</button>
             </div>
         </div>
     </div>
 </form>
 
-@push('js')
 <script>
     $(document).ready(function () {
         $("#form-import").validate({
@@ -55,7 +49,7 @@
 
                 $.ajax({
                     url: form.action,
-                    method: form.method,
+                    type: form.method,
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -82,7 +76,7 @@
                     }
                 });
 
-                return false; // prevent default form submit
+                return false;
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {
@@ -98,4 +92,4 @@
         });
     });
 </script>
-@endpush
+
