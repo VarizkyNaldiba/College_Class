@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Yajra\DataTables\Facades\DataTables;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BarangController extends Controller
 {
@@ -170,7 +171,7 @@ class BarangController extends Controller
     
             $insert = [];
     
-            if (count($data) > 1) { // jika data lebih dari 1 baris
+            if (count($data) > 1) { // jika data lebih dari 1 barisavlo wwwww                       
                 foreach ($data as $baris => $value) {
                     if ($baris > 1) { // baris ke 1 adalah header, maka lewati
                         $insert[] = [
@@ -207,12 +208,14 @@ class BarangController extends Controller
 
 
 
-    public function export()
+    public function export_excel()
     {
+        // ambil data barang
         $barang = BarangModel::select('kategori_id','barang_kode', 'barang_nama','harga_beli','harga_jual')
             ->orderBy('kategori_id')
             ->with('kategori')
             ->get();
+            // Load Library PhpSpreadsheet
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValue('A1', 'No');
@@ -258,4 +261,25 @@ class BarangController extends Controller
         $writer->save('php://output');
         exit;
     }
+
+    public function export_pdf()
+{
+    $barang = BarangModel::select('kategori_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual')
+        ->orderBy('kategori_id')
+        ->orderBy('barang_kode')
+        ->with('kategori')
+        ->get();
+
+    // Gunakan Barryvdh\DomPDF\Facade\Pdf
+    $pdf = Pdf::loadView('barang.export_pdf', [
+        'barang' => $barang
+    ]);
+
+    $pdf->setPaper('a4', 'portrait'); // Set ukuran kertas dan orientasi
+    $pdf->setOption('isRemoteEnabled', true); // Aktifkan jika ada gambar dari URL
+    $pdf->render();
+
+    return $pdf->stream('Data Barang ' . date('Y-m-d H:i:s') . '.pdf');
+}
+
 }
