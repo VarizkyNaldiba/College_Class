@@ -128,7 +128,7 @@ route::middleware('auth')->group(function () {
 });
 
     // Form Registrasi
-    Route::get('register', [AuthController::class, 'register'])->name('register');
+    Route::post('register', [AuthController::class, 'register'])->name('register');
     Route::post('register/save', [AuthController::class, 'register_save'])->name('register.save');
 
     // Profilw
