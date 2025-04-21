@@ -1,6 +1,9 @@
 import pandas as pd
 import time
 from datetime import datetime, timedelta
+import matplotlib.pyplot as plt
+import networkx as nx
+import numpy as np
 
 # Load dan normalisasi
 data = pd.read_excel('Transportation and Logistics Tracking Dataset..xlsx')
@@ -21,6 +24,68 @@ for index, row in data.iterrows():
     
     if pd.notna(origin) and pd.notna(destination):
         graph[origin].append((destination, distance))
+
+# Buat graph NetworkX untuk visualisasi
+def create_networkx_graph(graph_dict):
+    G = nx.DiGraph()
+    
+    # Tambahkan nodes
+    for node in graph_dict:
+        G.add_node(node)
+    
+    # Tambahkan edges
+    for source, destinations in graph_dict.items():
+        for destination, weight in destinations:
+            G.add_edge(source, destination, weight=weight)
+    
+    return G
+
+# Visualisasi graph
+def visualize_graph(G, path=None, title="Transportation Network"):
+    plt.figure(figsize=(16, 12))
+    
+    # Posisi node
+    pos = nx.spring_layout(G, seed=42, k=0.5)
+    
+    # Visualisasi semua nodes dan edges
+    nx.draw_networkx_nodes(G, pos, node_size=300, node_color='lightblue')
+    
+    # Visualisasi edges dengan weight sebagai label
+    edge_labels = {(u, v): f"{d['weight']:.1f}km" for u, v, d in G.edges(data=True)}
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=8)
+    
+    # Default edges
+    nx.draw_networkx_edges(G, pos, width=1.0, alpha=0.3, arrows=True, arrowsize=15)
+    
+    # Jika ada path, visualisasi dengan warna khusus
+    if path:
+        path_edges = [(path[i], path[i+1]) for i in range(len(path)-1)]
+        nx.draw_networkx_edges(G, pos, edgelist=path_edges, width=3.0, edge_color='red', arrows=True, arrowsize=20)
+        
+        # Highlight nodes dalam path
+        path_nodes = path
+        nx.draw_networkx_nodes(G, pos, nodelist=path_nodes, node_size=500, node_color='red')
+        
+        # Highlight nodes awal dan akhir
+        nx.draw_networkx_nodes(G, pos, nodelist=[path[0]], node_size=700, node_color='green')
+        nx.draw_networkx_nodes(G, pos, nodelist=[path[-1]], node_size=700, node_color='orange')
+    
+    # Label untuk nodes
+    labels = {}
+    for node in G.nodes():
+        # Potong nama lokasi jika terlalu panjang
+        short_name = node.split(',')[0] if ',' in node else node
+        if len(short_name) > 15:
+            short_name = short_name[:12] + '...'
+        labels[node] = short_name
+    
+    nx.draw_networkx_labels(G, pos, labels=labels, font_size=10, font_weight='bold')
+    
+    plt.title(title)
+    plt.axis('off')
+    plt.tight_layout()
+    plt.savefig(f"{title.replace(' ', '_')}.png", dpi=300)
+    plt.show()
 
 # DFS tunggal
 def dfs_path(graph, start, goal):
@@ -97,6 +162,13 @@ def dfs_multi_goal(graph, start, goals):
         nodes_visited_total += visited
 
     return full_path, total_distance, total_time, nodes_visited_total, current_time
+
+# Buat NetworkX graph untuk visualisasi
+nx_graph = create_networkx_graph(graph)
+
+# Visualisasi graf sebelum perhitungan rute
+visualize_graph(nx_graph, title="Jaringan Transportasi Lengkap")
+
 # CLI
 all_locations = sorted(all_nodes)
 print("\nDaftar lokasi:")
@@ -124,5 +196,8 @@ if result:
     print(f"⏱️  Total Waktu Tempuh     : {total_hours:.2f} jam")
     print(f"🕰️  Estimasi Tiba Terakhir : {final_time.strftime('%H:%M')}")
     print(f"🧭  Total Node Dikunjungi  : {visited_total}")
+    
+    # Visualisasi rute yang telah dihitung
+    visualize_graph(nx_graph, path=path, title=f"Rute Optimal: {start_node} → {goals[-1]}")
 else:
     print("❌ Pengiriman gagal direncanakan.")
