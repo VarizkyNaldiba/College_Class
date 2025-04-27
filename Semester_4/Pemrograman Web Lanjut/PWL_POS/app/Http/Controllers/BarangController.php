@@ -282,4 +282,9 @@ class BarangController extends Controller
     return $pdf->stream('Data Barang ' . date('Y-m-d H:i:s') . '.pdf');
 }
 
+public function show_ajax($id)
+{
+    $barang = BarangModel::with('kategori')->find($id);
+    return view('barang.show_ajax', compact('barang'));
+}
 }
