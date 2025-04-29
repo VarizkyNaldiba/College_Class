@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\LogoutController;
+use App\Http\Controllers\Api\LevelController;
 
 
 /*
@@ -30,3 +31,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/logout', [App\Http\Controllers\Api\LogoutController::class, '__invoke'])
 ->middleware('auth:api')
 ->name('logout'); //[LogoutController::class, '__invoke']);
+
+Route::get('/levels', [LevelController::class, 'index']);
+Route::post('/levels', [LevelController::class, 'store']);
+Route::get('/levels/{level}', [LevelController::class, 'show']);
+Route::put('/levels/{level}', [LevelController::class, 'update']);
+Route::delete('/levels/{level}', [LevelController::class, 'destroy']);
+
