@@ -1,18 +1,16 @@
-<section class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-sm-6"><h1>{{ $breadcrumb->title }}</h1></div>
-      <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-        @foreach($breadcrumb->list as $key => $value)
-          @if($key == count($breadcrumb->list) - 1)
-            <li class="breadcrumb-item active">{{ $value }}</li>
-          @else
-            <li class="breadcrumb-item">{{ $value }}</li>
-          @endif
-        @endforeach
-        </ol>
-      </div>
+<div class="row mb-3">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                @foreach($breadcrumb->list as $key => $value)
+                    @if($key == count($breadcrumb->list) - 1)
+                        <li class="breadcrumb-item active" aria-current="page">{{ $value }}</li>
+                    @else
+                        <li class="breadcrumb-item"><a href="#">{{ $value }}</a></li>
+                    @endif
+                @endforeach
+            </ol>
+        </nav>
+        <h2 class="h4 mb-0 mt-2">{{ $breadcrumb->title }}</h2>
     </div>
-  </div>
-</section>
+</div>

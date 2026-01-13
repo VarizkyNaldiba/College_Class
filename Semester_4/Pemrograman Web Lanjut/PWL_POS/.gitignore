@@ -17,3 +17,60 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Laravel specific
+/bootstrap/cache/*
+!/bootstrap/cache/.gitignore
+/storage/framework/cache/*
+!/storage/framework/cache/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/testing/*
+!/storage/framework/testing/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+/storage/logs/*
+!/storage/logs/.gitignore
+/storage/app/*
+!/storage/app/.gitignore
+!/storage/app/public 
+
+# Database
+*.sqlite
+*.sqlite-journal
+database.sqlite
+
+# OS specific
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE specific
+*.sublime-project
+*.sublime-workspace
+.phpintel/
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+
+# Build files
+/public/adminlte
+/public/css
+/public/js
+/public/mix-manifest.json
+
+# Logs
+*.log
+laravel.log
+
+# Testing
+/coverage
+/.phpunit.cache
+.phpunit.result.cache
+
+# Backup files
+*.bak
+*.backup
+*.old

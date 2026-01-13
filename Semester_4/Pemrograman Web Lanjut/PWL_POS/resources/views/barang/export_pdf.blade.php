@@ -65,14 +65,15 @@
     <table class="border-bottom-header">
         <tr>
             <td width="15%" class="text-center">
-                <img src="{{ asset('polinema-bw.png') }}" class="image">
+                <div style="width: 80px; height: 80px; background: #667eea; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                    <span style="color: white; font-size: 32px; font-weight: bold;">POS</span>
+                </div>
             </td>
             <td width="85%">
-                <span class="text-center d-block font-11 font-bold">KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</span>
-                <span class="text-center d-block font-13 font-bold">POLITEKNIK NEGERI MALANG</span>
-                <span class="text-center d-block font-10">Jl. Soekarno-Hatta No. 9 Malang 65141</span>
-                <span class="text-center d-block font-10">Telepon (0341) 404424 Pes. 101-105, 0341-404420, Fax. (0341) 404420</span>
-                <span class="text-center d-block font-10">Laman: www.polinema.ac.id</span>
+                <span class="text-center d-block font-13 font-bold">SISTEM INFORMASI POINT OF SALE</span>
+                <span class="text-center d-block font-12 font-bold">TOKO BAHAN BANGUNAN</span>
+                <span class="text-center d-block font-10">Jl. Raya Malang No. 123, Malang 65141</span>
+                <span class="text-center d-block font-10">Telepon (0341) 123456, Email: info@pos-bangunan.com</span>
             </td>
         </tr>
     </table>

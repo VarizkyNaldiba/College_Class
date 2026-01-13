@@ -1,10 +1,14 @@
-<footer class="main-footer">
-  <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.2.0
-  </div>
-  <strong>Copyright &copy; 2014-2021 
-      <a href="https://adminlte.io">AdminLTE.io</a>.
-  </strong> All rights reserved.
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <strong>&copy; {{ date('Y') }} POS Toko Bangunan.</strong> All rights reserved.
+            </div>
+            <div class="col-md-6 text-end">
+                Powered by <a href="#" class="text-decoration-none">CoreUI & Laravel</a>
+            </div>
+        </div>
+    </div>
 </footer>
 
 <!-- Control Sidebar -->

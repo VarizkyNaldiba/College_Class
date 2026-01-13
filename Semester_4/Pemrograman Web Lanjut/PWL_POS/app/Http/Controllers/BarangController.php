@@ -37,9 +37,11 @@ class BarangController extends Controller
         return DataTables::of($barang)
             ->addIndexColumn()
             ->addColumn('aksi', function ($barang) {
-                return '<button onclick="modalAction(\'' . url('/barang/' . $barang->barang_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> '
-                    . '<button onclick="modalAction(\'' . url('/barang/' . $barang->barang_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> '
-                    . '<button onclick="modalAction(\'' . url('/barang/' . $barang->barang_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
+                return '<div class="btn-group" role="group">'
+                    . '<button onclick="modalAction(\'' . url('/barang/' . $barang->barang_id . '/show_ajax') . '\')" class="btn btn-info btn-sm" title="Detail"><i class="fas fa-eye"></i></button>'
+                    . '<button onclick="modalAction(\'' . url('/barang/' . $barang->barang_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></button>'
+                    . '<button onclick="modalAction(\'' . url('/barang/' . $barang->barang_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm" title="Hapus"><i class="fas fa-trash"></i></button>'
+                    . '</div>';
             })
             ->rawColumns(['aksi'])
             ->make(true);
@@ -70,7 +72,22 @@ class BarangController extends Controller
                 ]);
             }
 
-            BarangModel::create($request->all());
+            // Hitung margin otomatis
+            $harga_beli = $request->harga_beli;
+            $harga_jual = $request->harga_jual;
+            $margin_nominal = $harga_jual - $harga_beli;
+            $margin_persen = $harga_beli > 0 ? ($margin_nominal / $harga_beli) * 100 : 0;
+
+            BarangModel::create([
+                'kategori_id' => $request->kategori_id,
+                'barang_kode' => $request->barang_kode,
+                'barang_nama' => $request->barang_nama,
+                'harga_beli' => $harga_beli,
+                'harga_jual' => $harga_jual,
+                'margin_persen' => $margin_persen,
+                'margin_nominal' => $margin_nominal,
+            ]);
+            
             return response()->json(['status' => true, 'message' => 'Data berhasil disimpan']);
         }
 
@@ -106,7 +123,22 @@ class BarangController extends Controller
             $barang = BarangModel::find($id);
 
             if ($barang) {
-                $barang->update($request->all());
+                // Hitung margin otomatis
+                $harga_beli = $request->harga_beli;
+                $harga_jual = $request->harga_jual;
+                $margin_nominal = $harga_jual - $harga_beli;
+                $margin_persen = $harga_beli > 0 ? ($margin_nominal / $harga_beli) * 100 : 0;
+
+                $barang->update([
+                    'kategori_id' => $request->kategori_id,
+                    'barang_kode' => $request->barang_kode,
+                    'barang_nama' => $request->barang_nama,
+                    'harga_beli' => $harga_beli,
+                    'harga_jual' => $harga_jual,
+                    'margin_persen' => $margin_persen,
+                    'margin_nominal' => $margin_nominal,
+                ]);
+                
                 return response()->json(['status' => true, 'message' => 'Data berhasil diupdate']);
             }
 

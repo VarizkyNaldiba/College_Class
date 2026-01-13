@@ -14,9 +14,8 @@ class LevelSeeder extends Seeder
     public function run(): void
     {
        $data = [
-            ['level_id' => 1, 'level_kode' => 'A', 'level_nama' => 'Administrator'],
-            ['level_id' => 2, 'level_kode' => 'U', 'level_nama' => 'Manager'],
-            ['level_id' => 3, 'level_kode' => 'M', 'level_nama' => 'Staff/Kasir'],
+            ['level_id' => 1, 'level_kode' => 'Adm', 'level_nama' => 'Administrator'],
+            ['level_id' => 2, 'level_kode' => 'Pgw', 'level_nama' => 'Pegawai'],
        ];
 
        DB::table('m_level')->insert($data);
